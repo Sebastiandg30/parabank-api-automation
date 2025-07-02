@@ -19,4 +19,4 @@ jobs:
         run: npm install -g newman
 
       - name: Run Postman tests
-        run: newman run "ParaBank_API_Tests.postman_collection.json" -e "ParaBank_QA_Env.postman_environment.json"
+        run: newman run "ParaBank API Tests.postman_collection.json" -e "Parabank.postman_environment.json"
