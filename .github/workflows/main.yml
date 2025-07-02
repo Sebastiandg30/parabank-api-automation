@@ -1,0 +1,32 @@
+# Nombre de nuestro workflow. Aparecerá en la pestaña "Actions".
+name: ParaBank API Tests CI
+
+# Evento que dispara el workflow. En este caso, en cada 'push'.
+on: [push]
+
+# Los trabajos (jobs) a realizar. Podemos tener varios.
+jobs:
+  # Nombre de nuestro único job.
+  newman_api_tests:
+    # El tipo de máquina virtual que usaremos. 'ubuntu-latest' es estándar y rápido.
+    runs-on: ubuntu-latest
+    
+    # La secuencia de pasos que ejecutará la máquina.
+    steps:
+      # Paso 1: Descargar nuestro código del repositorio a la máquina virtual.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Paso 2: Instalar Node.js, que es necesario para ejecutar Newman.
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # Paso 3: Instalar Newman en la máquina virtual.
+      - name: Install Newman
+        run: npm install -g newman
+
+      # Paso 4: ¡Ejecutar nuestras pruebas! Es el mismo comando que usaste localmente.
+      - name: Run Postman tests
+        run: newman run "ParaBank_API_Tests.postman_collection.json" -e "ParaBank_QA_Env.postman_environment.json"
