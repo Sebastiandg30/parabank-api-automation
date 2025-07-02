@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "1b0a4b5d-5960-4f7a-b379-2f9134a694b6",
+		"name": "ParaBank API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36911155"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// 1. Convertir la respuesta de texto XML a un objeto JSON que podamos usar.\r",
+							"// Postman tiene una librería interna para esto.\r",
+							"const responseJson = xml2Json(pm.response.text());\r",
+							"\r",
+							"// 2. Extraer el 'id' del cliente.\r",
+							"// OJO: La estructura del objeto convertido desde XML es un poco diferente.\r",
+							"// En lugar de responseJson.id, será responseJson.customer.id\r",
+							"let customerId;\r",
+							"if (responseJson.customer) {\r",
+							"    customerId = responseJson.customer.id;\r",
+							"}\r",
+							"\r",
+							"// 3. Guardar el ID en una variable de ambiente.\r",
+							"if (customerId) {\r",
+							"    pm.environment.set(\"customerId\", customerId);\r",
+							"}\r",
+							"\r",
+							"// 4. Añadir una prueba para verificar que el ID fue extraído.\r",
+							"pm.test(\"Customer ID was extracted successfully\", function () {\r",
+							"    pm.expect(customerId).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"// Null check for customer property\r",
+							"pm.test(\"Customer property exists\", function () {\r",
+							"    pm.expect(responseJson).to.have.property('customer').that.is.not.null;\r",
+							"});\r",
+							"\r",
+							"console.log(\"Customer ID (extraído desde XML) guardado: \" + customerId);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://para.testar.org/parabank/services/bank/login/john/demo",
+					"protocol": "https",
+					"host": [
+						"para",
+						"testar",
+						"org"
+					],
+					"path": [
+						"parabank",
+						"services",
+						"bank",
+						"login",
+						"john",
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer Accounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://para.testar.org/parabank/services/bank/customers/{{customerId}}/accounts",
+					"protocol": "https",
+					"host": [
+						"para",
+						"testar",
+						"org"
+					],
+					"path": [
+						"parabank",
+						"services",
+						"bank",
+						"customers",
+						"{{customerId}}",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
