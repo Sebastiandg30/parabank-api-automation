@@ -1,7 +1,9 @@
 🚀 The Big Idea
+
 This project shows a complete QA process I built from scratch for a demo banking app. I started with a manual test strategy, then built an automated safety net for both the backend API (with Postman) and the frontend UI (with Selenium). Finally, I plugged it all into a CI/CD pipeline that runs automatically on every code change.
 
 🛠️ Tech & Skills I Used
+
 Manual & Exploratory Testing to find initial bugs.
 
 API Testing with Postman & Newman.
@@ -13,6 +15,7 @@ UI Automation with Selenium, Python & Pytest (using the Page Object Model).
 CI/CD with GitHub Actions to automate the whole workflow.
 
 ⚙️ How to Run It
+
 API Tests (Newman)
 You'll need Node.js/npm. First, npm install -g newman, then run:
 
@@ -24,6 +27,7 @@ You'll need Python. Set up a virtual environment (python -m venv venv & activate
 pytest
 
 💡 The Plot Twist: When the API and UI Disagreed
+
 This is where the project got really interesting and realistic.
 
 When I tested the login API directly with Postman, it worked perfectly every time, returning a 200 OK status. From a backend perspective, everything looked fine.
