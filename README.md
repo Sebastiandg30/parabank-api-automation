@@ -1,5 +1,3 @@
-Full-Spectrum QA Automation Portfolio
-
 🚀 The Big Idea
 This project shows a complete QA process I built from scratch for a demo banking app. I started with a manual test strategy, then built an automated safety net for both the backend API (with Postman) and the frontend UI (with Selenium). Finally, I plugged it all into a CI/CD pipeline that runs automatically on every code change.
 
