@@ -38,6 +38,6 @@ def test_successful_login():
         )
         assert accounts_overview_title.is_displayed()
     except TimeoutException:
-        pytest.fail("El título 'Accounts Overview' no se encontró. Posiblemente el login falló.")
+        pytest.fail("The title 'Accounts Overview' was not found. Possibly login failed.")
     finally:
         driver.quit()
